@@ -20,11 +20,9 @@
   "bugs": {
     "url": "https://github.com/tradle/tx-data/issues"
   },
-  "peerDependencies": {
-    "bitcoinjs-lib": "*"
-  },
   "homepage": "https://github.com/tradle/tx-data#readme",
   "dependencies": {
+    "bitcoinjs-lib": "^1.4.0",
     "buffer-equal": "0.0.1",
     "debug": "^2.2.0",
     "tradle-utils": "git://github.com/tradle/tradle-utils"
