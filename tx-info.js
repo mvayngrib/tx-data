@@ -5,7 +5,7 @@ var TxData = require('./tx-data')
 var DATA_TYPES = TxData.types
 
 module.exports = function getTxInfo(tx, networkName, prefix) {
-  var txData = TxData.fromTx(tx, this.prefix)
+  var txData = TxData.fromTx(tx, prefix)
   if (!txData) return
 
   var addresses = {}
