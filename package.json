@@ -1,0 +1,35 @@
+{
+  "name": "tradle-tx-data",
+  "version": "0.0.1",
+  "description": "tradle transaction data defs",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tradle/tx-data.git"
+  },
+  "keywords": [
+    "bitcoin",
+    "tradle",
+    "blockchain"
+  ],
+  "author": "Mark Vayngrib <mark.vayngrib@lablz.com> (http://github.com/mvayngrib)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tradle/tx-data/issues"
+  },
+  "peerDependencies": {
+    "bitcoinjs-lib": "*"
+  },
+  "homepage": "https://github.com/tradle/tx-data#readme",
+  "dependencies": {
+    "buffer-equal": "0.0.1",
+    "debug": "^2.2.0",
+    "tradle-utils": "git://github.com/tradle/tradle-utils"
+  },
+  "devDependencies": {
+    "tape": "^4.0.0"
+  }
+}
