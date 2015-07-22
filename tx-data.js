@@ -4,15 +4,16 @@ var assert = require('assert')
 var bufferEqual = require('buffer-equal')
 var bitcoin = require('bitcoinjs-lib')
 var utils = require('tradle-utils')
+var kByV = require('key-by-val')
 
-TransactionData.types = {
+TxData.types = {
   permission: 1,
   public: 2
 }
 
-TransactionData.ENCODING = 'base64'
+TxData.ENCODING = 'base64'
 
-function TransactionData(prefix, type, data) {
+function TxData(prefix, type, data) {
   assert(
     typeof prefix !== 'undefined' &&
     typeof type !== 'undefined' &&
@@ -20,8 +21,8 @@ function TransactionData(prefix, type, data) {
     'prefix, type and data are all required'
   )
 
-  if (!Object.keys(TransactionData.types).some(function(key) {
-    return TransactionData.types[key] === type
+  if (!Object.keys(TxData.types).some(function(key) {
+    return TxData.types[key] === type
   })) {
     throw new Error('unsupported transaction data type')
   }
@@ -31,19 +32,26 @@ function TransactionData(prefix, type, data) {
   this._data = data
 }
 
-TransactionData.prototype.type = function() {
+TxData.prototype.type = function() {
   return this._type
 }
 
-TransactionData.prototype.data = function() {
+TxData.prototype.data = function() {
   return this._data
 }
 
-TransactionData.prototype.serialize = function() {
+TxData.prototype.toJSON = function () {
+  return {
+    type: kByV(TxData.types, this.type()),
+    data: this.data()
+  }
+}
+
+TxData.prototype.serialize = function() {
   var typeBuf = new Buffer(1)
   typeBuf.writeUInt8(this.type(), 0)
   var prefixBuf = new Buffer(this._prefix)
-  var dataBuf = Buffer.isBuffer(this._data) ? this._data : new Buffer(TransactionData.ENCODING)
+  var dataBuf = Buffer.isBuffer(this._data) ? this._data : new Buffer(TxData.ENCODING)
 
   return Buffer.concat([
     prefixBuf,
@@ -52,7 +60,7 @@ TransactionData.prototype.serialize = function() {
   ], prefixBuf.length + typeBuf.length + dataBuf.length)
 }
 
-TransactionData.deserialize = function(buf, prefix) {
+TxData.deserialize = function(buf, prefix) {
   assert(
     typeof buf !== 'undefined' &&
     typeof prefix !== 'undefined',
@@ -65,12 +73,12 @@ TransactionData.deserialize = function(buf, prefix) {
 
   var type = buf[prefixLength]
   var data = buf.slice(prefixLength + 1)
-  return new TransactionData(prefix, type, data)
+  return new TxData(prefix, type, data)
 }
 
-TransactionData.fromTx = function(tx, prefix) {
+TxData.fromTx = function(tx, prefix) {
   var data = utils.getOpReturnData(tx)
-  return data && TransactionData.deserialize(data, prefix)
+  return data && TxData.deserialize(data, prefix)
 }
 
-module.exports = TransactionData
+module.exports = TxData
