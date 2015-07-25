@@ -4,7 +4,6 @@ var assert = require('assert')
 var bufferEqual = require('buffer-equal')
 var bitcoin = require('bitcoinjs-lib')
 var utils = require('tradle-utils')
-var kByV = require('key-by-val')
 
 TxData.types = {
   permission: 1,
@@ -42,7 +41,7 @@ TxData.prototype.data = function() {
 
 TxData.prototype.toJSON = function () {
   return {
-    type: kByV(TxData.types, this.type()),
+    type: this.type(),
     data: this.data()
   }
 }

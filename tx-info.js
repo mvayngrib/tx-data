@@ -2,7 +2,6 @@
 var typeforce = require('typeforce')
 var bitcoin = require('bitcoinjs-lib')
 var utils = require('tradle-utils')
-var getKey = require('key-by-val')
 var TxData = require('./tx-data')
 var DATA_TYPES = TxData.types
 
@@ -24,7 +23,7 @@ exports.parse = function getTxInfo(tx, networkName, prefix) {
 
   var data = TxData.fromTx(tx, prefix)
   if (data) {
-    parsed.txType = getKey(DATA_TYPES, data.type())
+    parsed.txType = data.type()
     parsed.txData = data.data()
   }
 
@@ -34,11 +33,9 @@ exports.parse = function getTxInfo(tx, networkName, prefix) {
 exports.validate = function (txInfo) {
   try {
     typeforce({
-      txId: 'String',
-      tx: 'Object',
       addressesFrom: 'Array',
       addressesTo: 'Array',
-      txType: '?String',
+      txType: '?Number',
       txData: '?Buffer'
     }, txInfo)
 
