@@ -35,11 +35,11 @@ exports.validate = function (txInfo) {
     typeforce({
       addressesFrom: 'Array',
       addressesTo: 'Array',
-      txType: '?Number',
-      txData: '?Buffer'
+      txType: 'Number',
+      txData: 'Buffer'
     }, txInfo)
 
-    return true
+    return isValidType(txInfo.txType) && txInfo.txData.length >= 20
   } catch (err) {
     return false
   }
@@ -47,4 +47,12 @@ exports.validate = function (txInfo) {
 
 function truthy (o) {
   return !!o
+}
+
+function isValidType (type) {
+  for (var t in TxData.types) {
+    if (TxData.types[t] === type) return true
+  }
+
+  return false
 }
