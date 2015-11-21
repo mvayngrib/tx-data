@@ -2,8 +2,8 @@
 
 var assert = require('assert')
 var bufferEqual = require('buffer-equal')
-var bitcoin = require('bitcoinjs-lib')
-var utils = require('tradle-utils')
+var bitcoin = require('@tradle/bitcoinjs-lib')
+var utils = require('@tradle/utils')
 
 TxData.types = {
   permission: 1,

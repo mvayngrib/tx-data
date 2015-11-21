@@ -1,7 +1,7 @@
 
 var typeforce = require('typeforce')
-var bitcoin = require('bitcoinjs-lib')
-var utils = require('tradle-utils')
+var bitcoin = require('@tradle/bitcoinjs-lib')
+var utils = require('@tradle/utils')
 var TxData = require('./tx-data')
 var DATA_TYPES = TxData.types
 
