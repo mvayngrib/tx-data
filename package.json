@@ -23,7 +23,7 @@
   "homepage": "https://github.com/tradle/tx-data#readme",
   "dependencies": {
     "@tradle/bitcoinjs-lib": "^1.5.7",
-    "@tradle/utils": "^0.2.4",
+    "@tradle/utils": "^1.0.0",
     "buffer-equal": "0.0.1",
     "typeforce": "^1.1.3"
   },
