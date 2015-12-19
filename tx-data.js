@@ -72,7 +72,9 @@ TxData.deserialize = function(buf, prefix) {
 
   var type = buf[prefixLength]
   var data = buf.slice(prefixLength + 1)
-  return new TxData(prefix, type, data)
+  try {
+    return new TxData(prefix, type, data)
+  } catch (err) {}
 }
 
 TxData.fromTx = function(tx, prefix) {
