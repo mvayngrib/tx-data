@@ -3,6 +3,8 @@ var typeforce = require('typeforce')
 var bitcoin = require('@tradle/bitcoinjs-lib')
 var utils = require('@tradle/utils')
 var TxData = require('./tx-data')
+var constants = require('@tradle/constants')
+var DEFAULT_PREFIX = constants.OP_RETURN_PREFIX
 var DATA_TYPES = TxData.types
 
 exports.parse = function getTxInfo(tx, networkName, prefix) {
@@ -21,7 +23,13 @@ exports.parse = function getTxInfo(tx, networkName, prefix) {
       .filter(truthy)
   }
 
-  var data = TxData.fromTx(tx, prefix)
+  var data
+  if (prefix.indexOf(DEFAULT_PREFIX) !== 0) {
+    // ugly hack to support early txs with prefix 'tradle'
+    data = TxData.fromTx(tx, DEFAULT_PREFIX)
+  }
+
+  data = data || TxData.fromTx(tx, prefix)
   if (data) {
     parsed.txType = data.type()
     parsed.txData = data.data()
