@@ -8,6 +8,12 @@ var DEFAULT_PREFIX = constants.OP_RETURN_PREFIX
 var DATA_TYPES = TxData.types
 
 exports.parse = function getTxInfo(tx, networkName, prefix) {
+  if (Buffer.isBuffer(tx)) {
+    tx = bitcoin.Transaction.fromBuffer(tx)
+  } else if (typeof tx === 'string') {
+    tx = bitcoin.Transaction.fromHex(tx)
+  }
+
   var parsed = {
     txId: tx.getId(),
     tx: tx,
