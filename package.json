@@ -1,6 +1,6 @@
 {
   "name": "@tradle/tx-data",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "tradle transaction data defs",
   "main": "index.js",
   "scripts": {
